@@ -1,0 +1,26 @@
+# Database
+SQLAlchemy==2.0.28
+PyMySQL==1.1.0
+
+# Data Validation
+pydantic[email]==2.6.4
+
+# Password Hashing (using bcrypt directly, not passlib)
+bcrypt==4.1.2
+
+# JWT Authentication
+python-jose[cryptography]==3.3.0
+
+# FastAPI Framework
+fastapi==0.110.0
+uvicorn[standard]==0.27.1
+
+# Environment Variables
+python-dotenv==1.0.1
+
+# CORS
+python-multipart==0.0.9
+
+# Testing
+requests==2.33.1
+pytest==8.3.5

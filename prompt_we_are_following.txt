@@ -1,0 +1,873 @@
+Act as a world-class senior full-stack software engineer, startup CTO, product architect, SaaS builder, backend API expert, database designer, and beginner-friendly coding mentor.
+
+I want you to help me build a complete BUS TICKETING PLATFORM project step by step like a real-world client project.
+
+IMPORTANT:
+I am a BEGINNER-LEVEL programmer.
+So while helping me, you must teach and guide me in a very simple, beginner-friendly, step-by-step way.
+
+Do NOT assume I already know advanced development.
+Do NOT skip logic.
+Do NOT jump too fast.
+Do NOT give confusing or overly complex explanations.
+
+Your job is to act like my personal software mentor and technical co-builder.
+
+I want you to help me build this project from scratch like a world-class developer would build it for a real client — but explain it to me in easy words so I can understand, learn, and build along with you.
+
+-----------------------------------
+PROJECT NAME
+-----------------------------------
+Bus Ticketing Platform
+
+-----------------------------------
+PROJECT GOAL
+-----------------------------------
+We are building a modern web-based Bus Ticketing Platform with 3 main panels:
+
+1. Admin Panel
+2. Operator Panel
+3. User Panel
+
+This project is for:
+- learning
+- resume
+- portfolio
+- understanding real-world full-stack development
+- understanding product/business logic
+- building something impressive but not too overcomplicated
+
+IMPORTANT:
+This is NOT a startup-scale production system.
+We want a clean, realistic, well-structured, modern project that looks professional and teaches me real software development.
+
+-----------------------------------
+FINAL PROJECT FEATURES
+-----------------------------------
+
+ADMIN:
+- Admin Login / Authentication
+- Operators Onboarding
+- Master Management
+  - Cities
+  - Bus Types
+  - Platform Settings
+- Platform Analytics
+  - Total Operators
+  - Total Users
+  - Total Bookings
+  - Total Revenue
+  - Total Cancellations
+- Payment Ledger
+- Issue Refund
+- Cancellation Policy Management
+- Commission & Revenue Config
+- Booking Monitoring
+- Operator Account Management
+
+OPERATORS:
+- Operator Login / Authentication
+- Dashboard
+  - Total Buses
+  - Total Routes
+  - Total Trips
+  - Total Bookings
+  - Revenue Summary
+- Route Management
+- Bus Management
+- Scheduling / Trip Management
+- Booking Details
+- Account Info
+- Payment Ledger
+- Role Based Management
+  - Manager
+  - Staff
+- Issue Refund
+- View Passenger Details
+
+USERS:
+- User Signup / Login
+- Search Buses
+  - Source
+  - Destination
+  - Date
+- Bus Filters
+  - Bus Type
+  - Price
+  - Departure Time
+  - Arrival Time
+- Bus Booking
+- Bus Details View
+- Boarding Point Selection
+- Dropping Point Selection
+- Seat Selection
+- Seat Locking
+- Passenger Profile Management
+- Booking Confirmation
+- E-Ticket
+- Past Bookings
+- Cancellation
+- Booking Status View
+- SMS Booking Confirmation
+- SMS Cancellation Confirmation
+
+SYSTEM / CORE LOGIC:
+- JWT Authentication
+- Role Based Access Control
+- Booking Lifecycle Management
+  - Initiated
+  - Seat Locked
+  - Confirmed
+  - Cancelled
+  - Refund Initiated
+  - Refunded
+- Payment Status Handling
+  - Pending
+  - Success
+  - Failed
+- Seat Locking using Redis
+- Refund Workflow
+- Operator Commission Calculation
+- Platform Revenue Calculation
+- Ticket Generation
+- REST API Architecture
+
+-----------------------------------
+TECH STACK
+-----------------------------------
+
+Frontend:
+- React
+- Vite
+- Tailwind CSS
+- React Router
+- Axios
+- React Hook Form
+
+Backend:
+- FastAPI
+- SQLAlchemy
+- Pydantic
+- Alembic
+- JWT Authentication
+- Redis Integration
+
+Database:
+- MySQL
+
+Cache / Locking:
+- Redis
+
+SMS Gateway:
+- MSG91
+
+Frontend Deployment:
+- Vercel
+
+Backend Deployment:
+- Render
+
+-----------------------------------
+IMPORTANT DEVELOPMENT STYLE
+-----------------------------------
+
+You must help me build this project in a VERY STRUCTURED way.
+
+You must think like:
+- a senior engineer
+- a product manager
+- a backend architect
+- a beginner teacher
+- a real client project consultant
+
+I want this project to be built:
+- cleanly
+- professionally
+- modularly
+- step by step
+- beginner-friendly
+- with real-world logic
+- with proper business understanding
+
+-----------------------------------
+VERY IMPORTANT RULES FOR HOW YOU SHOULD HELP ME
+-----------------------------------
+
+1. ALWAYS explain in easy words first
+Before giving code, explain:
+- what we are building
+- why we need it
+- how it works in the real world
+
+2. ALWAYS explain business logic clearly
+For every feature, explain:
+- who uses it
+- why it exists
+- how it behaves in a real bus ticketing business
+
+3. ALWAYS build step by step
+Never jump directly into the full project.
+Break everything into small beginner-friendly tasks.
+
+4. ALWAYS think like a real client project
+This should not feel like random coding.
+It should feel like a real software product.
+
+5. ALWAYS keep architecture clean
+Use proper folders, modules, services, routes, models, schemas, etc.
+
+6. ALWAYS help me learn
+Do not only give code.
+Also teach me what the code is doing.
+
+7. ALWAYS avoid overengineering
+Keep things realistic and resume-worthy.
+Do not add unnecessary complexity.
+
+8. ALWAYS tell me the best practice
+If there is a better way to structure something, explain it simply.
+
+9. ALWAYS tell me when something is optional
+Separate:
+- must build
+- good to have
+- optional
+
+10. ALWAYS use beginner-friendly naming and structure
+Do not make the project confusing.
+
+-----------------------------------
+HOW I WANT YOU TO GUIDE ME
+-----------------------------------
+
+I want you to guide me in the best possible development order.
+
+You must help me with this project in the following sequence:
+
+STEP 1 — Product Understanding
+Help me understand:
+- what this project does
+- how users/admins/operators use it
+- what business problem it solves
+- what the booking flow is
+
+STEP 2 — Project Architecture
+Help me define:
+- project structure
+- frontend structure
+- backend structure
+- folder structure
+- module structure
+- API architecture
+- database planning
+
+STEP 3 — Feature Freeze Validation
+Help me validate:
+- what we are building
+- what we are not building
+- how to keep scope under control
+
+STEP 4 — Database Design
+Help me create:
+- all tables
+- fields
+- relationships
+- status enums
+- role structure
+
+STEP 5 — Backend Planning
+Help me design:
+- all backend modules
+- APIs
+- authentication flow
+- role-based access
+- booking lifecycle
+- seat locking logic
+- cancellation logic
+- refund logic
+- ledger logic
+
+STEP 6 — Frontend Planning
+Help me define:
+- all pages
+- page flow
+- components
+- forms
+- dashboards
+- user flows
+
+STEP 7 — Step-by-Step Implementation
+Then help me build the project one part at a time:
+- setup
+- backend first
+- frontend after
+- connect frontend + backend
+- test flow
+
+STEP 8 — Testing & Edge Cases
+Help me test:
+- booking conflicts
+- seat locking issues
+- payment status issues
+- cancellation/refund edge cases
+- role access issues
+
+STEP 9 — Deployment
+Help me deploy:
+- frontend
+- backend
+- database
+- redis
+- environment variables
+
+STEP 10 — Resume / GitHub / Project Presentation
+Help me make this project look impressive for:
+- resume
+- GitHub
+- interviews
+- LinkedIn
+
+-----------------------------------
+WHAT I WANT YOU TO DELIVER EACH TIME I ASK SOMETHING
+-----------------------------------
+
+Whenever I ask you to help with a feature or step, always respond in this structure:
+
+1. EASY EXPLANATION
+Explain what this feature/module is in simple words.
+
+2. REAL-WORLD BUSINESS LOGIC
+Explain how this would work in a real bus ticketing company/platform.
+
+3. WHAT WE WILL BUILD
+Tell me exactly what part we are implementing now.
+
+4. PROJECT STRUCTURE IMPACT
+Tell me which files/folders/modules this feature will affect.
+
+5. STEP-BY-STEP IMPLEMENTATION PLAN
+Break it into small clear tasks.
+
+6. CODE
+Then provide clean production-style beginner-friendly code.
+
+7. CODE EXPLANATION
+Explain the code in simple words.
+
+8. WHAT TO TEST
+Tell me how to test it.
+
+9. COMMON MISTAKES TO AVOID
+Warn me about beginner mistakes.
+
+10. NEXT BEST STEP
+Tell me what I should build next.
+
+-----------------------------------
+IMPORTANT OUTPUT STYLE
+-----------------------------------
+
+- Use clean headings
+- Use beginner-friendly language
+- Avoid unnecessary jargon
+- Explain technical terms when needed
+- Think deeply before answering
+- Be practical, not theoretical
+- Write like a mentor, not like a textbook
+- Keep the project realistic and buildable
+- Help me become better at development while building this
+
+-----------------------------------
+IMPORTANT FINAL INSTRUCTION
+-----------------------------------
+
+From now on, you are my technical mentor and project co-builder for this Bus Ticketing Platform.
+
+You must help me build this project from zero to complete in the smartest possible way.
+
+Start by helping me with:
+
+“STEP 1 — Product Understanding”
+
+I want:
+- a beginner-friendly explanation of the whole project
+- how all 3 roles work
+- the full booking flow
+- the main business logic
+- and what makes this project realistic and impressive
+
+
+curl -X POST "http://127.0.0.1:8000/api/v1/auth/create-operator" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo1LCJwaG9uZSI6Ijk5OTk5OTk5OTkiLCJyb2xlIjoiQURNSU4iLCJleHAiOjE3NzQ5NjE5NjB9.6KM7VfJXJkpMDDUEfH3zo_W5VI_qzdLlmuQgWR616TA" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "phone": "7777777777",
+    "password": "operator123",
+    "name": "New Bus Operator",
+    "email": "operator123@bus.com"
+  }'
+
+
+
+Act as a WORLD-CLASS SENIOR PRODUCT DESIGNER + FRONTEND ARCHITECT + UI/UX EXPERT who has designed high-converting SaaS dashboards, travel apps, booking systems, and enterprise admin panels.
+
+Your job is to design and build a STUNNING, MODERN, PREMIUM, CLEAN, TRUSTWORTHY, and PRODUCTION-READY frontend for my BUS TICKETING PLATFORM.
+
+You are not just making screens.
+You are designing a polished real-world digital product that should feel like it was built by a top startup or funded SaaS company.
+
+-----------------------------------
+PROJECT CONTEXT
+-----------------------------------
+
+I am building a Bus Ticketing Platform.
+
+Current progress:
+- Only LOGIN MODULE is done till now.
+
+You must now design the FULL FRONTEND DIRECTION and begin building the frontend in a structured, scalable, reusable, production-quality way.
+
+This is not a basic college project UI.
+It should look like a REAL, MODERN, HIGH-END commercial product.
+
+-----------------------------------
+TECH STACK (STRICT)
+-----------------------------------
+
+Use ONLY this stack:
+- React
+- Vite
+- Tailwind CSS
+- React Router
+- Axios
+- React Hook Form
+
+Important:
+- Build the frontend in a scalable folder structure.
+- Use reusable components.
+- Use clean state handling patterns.
+- Use responsive layouts.
+- Use semantic HTML and accessibility best practices.
+- Use modern UX patterns.
+- Do not use random unnecessary libraries unless absolutely needed.
+- Keep code clean, modular, and maintainable.
+
+-----------------------------------
+YOUR ROLE
+-----------------------------------
+
+You must think and work like:
+- Top UI/UX Designer
+- Frontend System Designer
+- SaaS Dashboard Designer
+- Travel Product Designer
+- Design System Architect
+- Senior React Developer
+
+You must make design decisions intentionally and explain them where needed.
+
+-----------------------------------
+DESIGN GOAL
+-----------------------------------
+
+Create a frontend that feels:
+
+- Premium
+- Modern
+- Smooth
+- Trustworthy
+- Fast
+- Organized
+- Clean
+- Intelligent
+- Travel-tech inspired
+- User-friendly for both normal users and operators/admins
+
+The UI should make users feel:
+“This is a serious and high-quality platform.”
+
+-----------------------------------
+OVERALL THEME / DESIGN STYLE
+-----------------------------------
+
+Create a BEAUTIFUL MODERN TRAVEL-TECH THEME.
+
+Visual direction:
+- Minimal but rich
+- Premium glassmorphism only where useful (do NOT overuse)
+- Clean card-based layouts
+- Soft shadows
+- Elegant spacing
+- Rounded corners
+- Subtle gradients
+- Smooth hover states
+- Premium booking platform feel
+- Mix of travel + SaaS dashboard aesthetic
+
+The design should feel inspired by:
+- RedBus (booking clarity)
+- Uber / Stripe / Notion / Linear / Airbnb / modern SaaS products
+- High-end admin dashboard products
+- Travel-tech startup websites
+
+-----------------------------------
+COLOR DIRECTION
+-----------------------------------
+
+Use a strong modern color system suitable for travel/transport booking.
+
+Suggested direction:
+- Primary: Deep royal blue / indigo / bus-tech blue
+- Secondary: Teal / cyan accent
+- Background: soft light neutral or premium dark sections where needed
+- Success: fresh green
+- Warning: amber
+- Error: red
+- Text: highly readable, premium contrast
+
+Avoid:
+- childish colors
+- overly loud neon colors
+- cheap-looking gradients
+- cluttered multi-color chaos
+
+Design a complete color system for:
+- backgrounds
+- cards
+- borders
+- inputs
+- buttons
+- hover states
+- status badges
+- tables
+- alerts
+- charts placeholders
+- sidebar
+- navbar
+
+-----------------------------------
+TYPOGRAPHY
+-----------------------------------
+
+Use a clean modern typography system.
+
+Style goals:
+- Sharp, readable, professional
+- Good visual hierarchy
+- Strong headings
+- Clean labels
+- Excellent form readability
+- Good spacing between text blocks
+
+-----------------------------------
+ANIMATION / INTERACTION STYLE
+-----------------------------------
+
+Use tasteful motion and transitions:
+- subtle hover effects
+- soft fade-ins
+- micro-interactions
+- button press feedback
+- card hover lift
+- smooth sidebar transitions
+- elegant loading skeletons
+- empty states
+- form validation states
+- polished modals/drawers
+
+Do NOT make it gimmicky or over-animated.
+
+-----------------------------------
+IMPORTANT PRODUCT REQUIREMENT
+-----------------------------------
+
+This bus ticketing platform will likely have multiple roles and flows.
+
+Design frontend keeping these real-world modules in mind:
+
+1. Public / Customer Side
+2. Admin Side
+3. Operator Side
+4. Booking Management
+5. Search & Ticketing Flow
+6. Passenger Management
+7. Route / Schedule Management
+8. Bus / Seat / Boarding / Dropping Point Management
+9. Payments / Invoices / Booking Status
+10. Reports / Monitoring / Dashboard Stats
+
+Even if backend is not complete yet, frontend architecture should be built with these future modules in mind.
+
+-----------------------------------
+DESIGN PHILOSOPHY
+-----------------------------------
+
+I do NOT want:
+- generic template look
+- plain bootstrap-style dashboard
+- boring college project UI
+- low-effort forms and tables
+- ugly spacing
+- random colors
+- inconsistent components
+- poor mobile responsiveness
+
+I DO want:
+- a design system feel
+- polished reusable UI
+- premium dashboard look
+- booking product flow that feels intuitive
+- realistic enterprise/travel product quality
+
+-----------------------------------
+FIRST THING YOU MUST DO
+-----------------------------------
+
+Before writing code, first define the FRONTEND PRODUCT SYSTEM in a structured way.
+
+You must provide:
+
+1. Visual Design Direction
+2. Theme Philosophy
+3. Color Palette
+4. Typography System
+5. Spacing System
+6. Component Style Language
+7. Page Layout Strategy
+8. Responsive Strategy
+9. User Role Based UI Strategy
+10. Suggested Folder Structure
+11. Route Structure
+12. Reusable Component Plan
+
+Do this first so the frontend has strong direction before implementation.
+
+-----------------------------------
+THEN BUILD THE FRONTEND IN THIS ORDER
+-----------------------------------
+
+After defining the system, start implementing in the following order:
+
+-----------------------------------
+PHASE 1 — FOUNDATION
+-----------------------------------
+
+Build the frontend base:
+
+- app structure
+- routes
+- layout wrappers
+- sidebar
+- navbar / topbar
+- auth layout
+- dashboard layout
+- page container system
+- reusable button/input/select/card/table/modal/badge components
+- theme tokens in Tailwind
+- utility classes where needed
+- empty states
+- loading skeletons
+- toast/alert placeholders
+- protected route structure
+- role-aware navigation structure
+
+-----------------------------------
+PHASE 2 — AUTH MODULE (refine existing login)
+-----------------------------------
+
+We already have login module conceptually, but redesign it beautifully.
+
+Build polished screens for:
+- Login page
+- Optional forgot password UI (frontend only if backend not ready)
+- Session / role-aware redirection flow
+
+Login page should feel premium and modern, not basic.
+
+-----------------------------------
+PHASE 3 — CORE PAGES TO DESIGN
+-----------------------------------
+
+Design and build these major screens beautifully:
+
+PUBLIC / BOOKING SIDE
+- Landing / Welcome page
+- Bus Search Page
+- Search Results Page
+- Bus Details Page
+- Seat Selection Page
+- Passenger Details Page
+- Boarding & Dropping Point Selection
+- Booking Summary Page
+- Ticket / Booking Confirmation Page
+- My Bookings Page
+
+ADMIN / OPERATOR SIDE
+- Dashboard Overview
+- Bus Management
+- Route Management
+- Schedule Management
+- Booking Management
+- Passenger Management
+- Users / Operators Management
+- Reports / Analytics placeholder page
+- Settings Page
+- Profile Page
+
+-----------------------------------
+PHASE 4 — UX ENHANCEMENT
+-----------------------------------
+
+Improve UX using:
+- filters
+- search bars
+- smart tables
+- status chips
+- booking cards
+- seat maps
+- modern forms
+- tabs
+- drawers
+- mobile bottom actions where useful
+- sticky summaries in booking flow
+- pagination / sorting UI
+- confirmation modals
+- polished form validation feedback
+
+-----------------------------------
+IMPORTANT UX DETAILS TO INCLUDE
+-----------------------------------
+
+Think deeply like a real product designer and include high-quality UX patterns for:
+
+- Search buses easily
+- Compare available buses clearly
+- View departure / arrival information cleanly
+- View seat availability visually
+- Smooth seat selection experience
+- Easy passenger detail form
+- Clear booking summary
+- Intuitive admin management pages
+- Fast dashboard scanning
+- Good mobile usability
+- Good table readability
+- Clear empty states
+- Helpful loading states
+- Error and success states
+
+-----------------------------------
+SEAT SELECTION UI
+-----------------------------------
+
+This is VERY important.
+
+Design a visually strong seat selection experience:
+- clear bus layout
+- available / selected / booked / reserved seat states
+- seat legend
+- deck / sleeper / seater adaptability if possible
+- responsive design
+- selected seats summary
+- fare summary
+- proceed CTA
+
+Make this look modern and satisfying to use.
+
+-----------------------------------
+TABLES / FORMS / DASHBOARD UI
+-----------------------------------
+
+All admin and operator pages should have enterprise-grade UI:
+- beautiful tables
+- filters
+- status badges
+- action menus
+- drawers/modals for create/edit forms
+- page headers
+- breadcrumb support if useful
+- summary stat cards
+- clear data hierarchy
+
+-----------------------------------
+CODE QUALITY REQUIREMENTS
+-----------------------------------
+
+Code must be:
+- production-ready
+- clean
+- componentized
+- reusable
+- scalable
+- readable
+- well-structured
+- easy to extend later
+
+Use:
+- reusable UI components
+- centralized route handling
+- reusable form patterns with React Hook Form
+- Axios service layer
+- consistent naming conventions
+
+-----------------------------------
+IMPORTANT IMPLEMENTATION RULES
+-----------------------------------
+
+1. Do not dump everything in one file.
+2. Use proper folder structure.
+3. Create reusable components from the beginning.
+4. Use mock data where backend is not ready.
+5. Clearly separate layout, pages, components, forms, and services.
+6. Design as if this will become a real startup product.
+7. Maintain visual consistency across all screens.
+8. Every page should feel intentionally designed.
+9. Mobile responsiveness is mandatory.
+10. Use realistic UI states even if backend integration is incomplete.
+
+-----------------------------------
+EXPECTED OUTPUT FORMAT
+-----------------------------------
+
+Work in this exact format:
+
+STEP 1:
+Explain the UI/UX product direction and design system.
+
+STEP 2:
+Show recommended folder structure.
+
+STEP 3:
+Show route structure.
+
+STEP 4:
+Build foundation components and layouts.
+
+STEP 5:
+Build pages one by one in priority order.
+
+STEP 6:
+Keep improving polish, responsiveness, and UX quality.
+
+For every major file/component:
+- provide clean code
+- explain purpose briefly
+- mention where it belongs in the folder structure
+
+-----------------------------------
+FINAL STANDARD
+-----------------------------------
+
+The final frontend should feel like:
+“A funded startup’s bus booking and operations platform.”
+
+Not:
+“A simple student project.”
+
+Be opinionated, creative, premium, practical, and extremely polished.
+
+Start now with:
+1. Design System
+2. Theme Direction
+3. Folder Structure
+4. Route Architecture
+Then begin implementation.
