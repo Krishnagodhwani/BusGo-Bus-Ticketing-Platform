@@ -1,82 +1,149 @@
-# BusGo Bus Ticketing Platform
+<div align="center">
 
-A full-stack bus ticketing and transport operations platform built for three core user groups:
+# 🚌 BusGo — Bus Ticketing Platform
 
-- `Admin` for platform governance, operator onboarding, analytics, refunds, finance visibility, support, and configuration
-- `Operator` for fleet, trips, routes, company operations, crew, and seat controls
-- `Passenger` for bus search, booking, and ticketing flows
+### A Full-Stack Bus Booking & Transport Operations Management System
 
-The project combines a FastAPI backend with a React + Vite frontend and focuses on a clean operational dashboard experience across booking management, operator workflows, and platform administration.
+<p align="center">
+  <img src="https://img.shields.io/badge/Frontend-React%2019-blue?style=for-the-badge&logo=react" />
+  <img src="https://img.shields.io/badge/Backend-FastAPI-009688?style=for-the-badge&logo=fastapi" />
+  <img src="https://img.shields.io/badge/Database-MySQL-orange?style=for-the-badge&logo=mysql" />
+  <img src="https://img.shields.io/badge/Auth-JWT-black?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" />
+</p>
 
-## Highlights
+<p align="center">
+  <b>Built for Admins, Operators, and Passengers</b><br/>
+  Manage bookings, routes, fleets, trips, finance, support, and ticketing workflows in one platform.
+</p>
 
-- Multi-role platform with `ADMIN`, `OPERATOR`, and `USER` authentication flows
-- Admin command center for analytics, onboarding, booking monitoring, refunds, support, and policy settings
-- Operator workspace for buses, routes, trips, manifests, company profile, crew assignments, and blocked seats
-- Booking engine with intermediate-stop support and segment-aware seat booking APIs
-- Financial and business controls including cancellation policy, revenue config, fare templates, ledger visibility, and CSV exports
-- Audit logs, alerts, document verification, and support ticket desk for operational oversight
+</div>
 
-## Core Features
+---
 
-### Admin
-- Admin login and protected dashboard access
-- Operator onboarding queue with approve/reject workflow
+## 📌 Overview
+
+**BusGo** is a full-stack **bus ticketing and transport operations platform** designed to simulate a modern intercity bus service system.
+
+It is built around **three primary user roles**:
+
+- **Admin** — platform governance, operator onboarding, analytics, finance, support, and configuration
+- **Operator** — fleet, buses, routes, trips, crew, and business operations
+- **Passenger** — bus discovery, booking, seat selection, and ticketing experience
+
+The project combines a **React + Vite frontend** with a **FastAPI backend** and a **MySQL database** to deliver a scalable and structured transport-tech application.
+
+---
+
+## ✨ Key Highlights
+
+- 🔐 Multi-role authentication system (`ADMIN`, `OPERATOR`, `USER`)
+- 📊 Admin dashboard for analytics, governance, and reporting
+- 🏢 Operator workspace for managing buses, routes, and scheduled trips
+- 🎫 Passenger booking flow with seat selection and ticketing
+- 🛣️ **Intermediate-stop / segment-based booking support**
+- 💰 Refund, cancellation, fare, and revenue control modules
+- 🧾 Payment ledger, audit logs, alerts, and support workflows
+- 📁 Structured full-stack architecture for future scalability
+
+---
+
+## 🧠 Core Modules
+
+### 🔐 Authentication & Access Control
+- Role-based login system
+- Protected routes and secure access handling
+- JWT-based authentication flow
+
+### 👨‍💼 Admin Module
+- Admin dashboard and operational overview
+- Operator onboarding and approval workflow
 - Operator document verification
-- Operator account and commercial profile management
-- Master management for cities and bus types
-- Platform analytics for operators, users, bookings, revenue, cancellations, and refund load
-- Booking monitoring and refund issue controls
-- Payment ledger and refund audit visibility
-- Cancellation policy management
-- Commission and revenue configuration
-- Global inventory rules
-- Fare template management
+- Platform analytics (bookings, users, revenue, cancellations, refunds)
+- Booking monitoring and refund issue handling
+- Payment ledger visibility
 - Support ticket desk
-- CSV exports for operator, booking, and support reporting
-- Admin alerts and audit logs
-- Platform settings management
+- Fare template management
+- Commission and revenue configuration
+- Cancellation policy management
+- Global inventory rules
+- CSV export support
+- Platform alerts and audit logs
+- Master settings and system controls
 
-### Operator
-- Operator authentication and protected workspace
-- Bus and fleet management
-- Route and trip management
-- Boarding manifest and passenger visibility
+### 🏢 Operator Module
+- Operator dashboard and protected workspace
+- Fleet and bus management
+- Route and trip scheduling
+- Passenger manifest visibility
 - Company profile management
-- Driver and crew assignment workflow
+- Driver and crew assignments
 - Blocked seat controls
-- Real-time trip status and operations support
+- Operational support for scheduled services
 
-### Passenger / Booking
-- Search and booking flows
-- Segment/intermediate-stop ticket booking support
+### 🎫 Passenger / Booking Module
+- Bus search and ticket booking flow
+- Seat selection experience
 - Ticket and booking record handling
-- Refund-aware booking state management
+- Refund-aware booking state logic
+- Segment/intermediate-stop seat booking support
 
-## Tech Stack
+---
+
+## 📸 Screenshots
+
+<p align="center">
+  <img src="docs/screenshots/admin-dashboard.png" alt="Admin Dashboard" width="48%" />
+  <img src="docs/screenshots/operators-page.png" alt="Operators Page" width="48%" />
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/payment-ledger.png" alt="Payment Ledger" width="48%" />
+  <img src="docs/screenshots/admin-settings.png" alt="Admin Settings" width="48%" />
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/operator-overview.png" alt="Operator Overview" width="48%" />
+  <img src="docs/screenshots/schedule-trips.png" alt="Schedule Trips" width="48%" />
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/user-home.png" alt="User Home" width="48%" />
+  <img src="docs/screenshots/user-search-results.png" alt="User Search Results" width="48%" />
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/user-seat-selection.png" alt="User Seat Selection" width="80%" />
+</p>
+
+---
+
+## 🛠️ Tech Stack
 
 ### Frontend
-- React 19
-- Vite
-- React Router
-- Axios
-- Custom CSS design system
+- **React 19**
+- **Vite**
+- **React Router**
+- **Axios**
+- **Custom CSS Design System**
 
 ### Backend
-- FastAPI
-- SQLAlchemy
-- PyMySQL
-- Pydantic
-- JWT authentication
-- Bcrypt password hashing
+- **FastAPI**
+- **SQLAlchemy**
+- **Pydantic**
+- **PyMySQL**
+- **JWT Authentication**
+- **Bcrypt Password Hashing**
 
 ### Database
-- MySQL
+- **MySQL**
 
-## Project Structure
+---
+
+## 📂 Project Structure
 
 ```text
-bus-ticketing-platform/
+BusGo-Bus-Ticketing-Platform/
 ├── backend/
 │   ├── app/
 │   │   ├── main.py
@@ -89,6 +156,8 @@ bus-ticketing-platform/
 │   ├── create_admin.py
 │   ├── seed_masters.py
 │   └── requirements.txt
+├── docs/
+│   └── screenshots/
 ├── frontend/
 │   ├── src/
 │   │   ├── api/
@@ -96,19 +165,24 @@ bus-ticketing-platform/
 │   │   ├── modules/
 │   │   └── router/
 │   └── package.json
+├── LICENSE
 └── README.md
 ```
 
-## Local Setup
+---
 
-### 1. Clone the repository
+## 🚀 Getting Started
+
+### 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/bus-ticketing-platform.git
-cd bus-ticketing-platform
+git clone https://github.com/Krishnagodhwani/BusGo-Bus-Ticketing-Platform.git
+cd BusGo-Bus-Ticketing-Platform
 ```
 
-### 2. Backend setup
+---
+
+## ⚙️ Backend Setup
 
 ```bash
 cd backend
@@ -117,27 +191,29 @@ venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-Create your backend `.env` with your MySQL connection details before starting the API.
+Create a `.env` file inside the backend directory and configure your **MySQL database connection** before running the API.
 
-Run the backend:
+### ▶️ Run Backend
 
 ```bash
 uvicorn app.main:app --reload
 ```
 
-Backend base URL:
+Backend will run at:
 
 ```text
 http://127.0.0.1:8000
 ```
 
-### 3. Create admin account
+---
+
+## 👑 Create Admin Account
 
 ```bash
 python create_admin.py
 ```
 
-Default development admin credentials created by the script:
+Default development admin credentials:
 
 ```text
 Phone: 9999999999
@@ -145,13 +221,19 @@ Password: admin123
 Role: ADMIN
 ```
 
-### 4. Seed master data
+> ⚠️ Recommended: Change default credentials before production use.
+
+---
+
+## 🌱 Seed Master Data
 
 ```bash
 python seed_masters.py
 ```
 
-### 5. Frontend setup
+---
+
+## 💻 Frontend Setup
 
 ```bash
 cd ../frontend
@@ -159,13 +241,15 @@ npm install
 npm run dev
 ```
 
-Frontend base URL:
+Frontend will run at:
 
 ```text
 http://localhost:5173
 ```
 
-## Available Scripts
+---
+
+## 📜 Available Scripts
 
 ### Frontend
 
@@ -183,61 +267,103 @@ python create_admin.py
 python seed_masters.py
 ```
 
-## API Overview
+---
 
-The FastAPI app mounts module routers under:
+## 🔌 API Overview
+
+The FastAPI application mounts routers under:
 
 ```text
 /api/v1
 ```
 
-Main backend modules:
+### Main Backend Modules
 
-- `auth` for login, registration, and operator creation
-- `admin` for platform governance and analytics
-- `operator` for operator workflows
-- `booking` for reservation and seat-booking logic
+- `auth` — login, registration, authentication, and operator creation
+- `admin` — governance, analytics, configuration, and monitoring
+- `operator` — fleet, routes, trips, and operational workflows
+- `booking` — reservation, seats, and ticketing logic
 
-Health check endpoint:
+### Health Check Endpoint
 
 ```text
 GET /health
 ```
 
-## Product Direction
+---
 
-This project is designed as an operations-heavy bus travel platform, not just a basic booking UI. The emphasis is on:
+## 📈 Current Status
 
-- admin governance
-- operator onboarding
-- route and trip operations
+### Implemented Features
+
+- ✅ Admin dashboard and platform controls
+- ✅ Operator onboarding and management workflows
+- ✅ Booking monitoring and refund controls
+- ✅ Support ticket desk
+- ✅ Fare templates and inventory rules
+- ✅ Company profile and crew workflows
+- ✅ Blocked seat workflows
+- ✅ CSV report exports
+- ✅ Audit logs and alerts
+
+---
+
+## 🎯 Project Vision
+
+BusGo is designed as more than a simple bus booking interface.
+
+It focuses on creating a **real-world transport operations system** by covering:
+
+- platform governance
+- operator lifecycle management
+- trip and route operations
+- passenger and booking workflows
 - refund and financial visibility
-- business rule configuration
-- support and operational workflows
+- configurable business logic
+- support and operational oversight
 
-## Resume-Ready Summary
+This makes it a stronger product architecture compared to a basic CRUD booking project.
 
-Built a full-stack bus ticketing and transport operations platform with separate admin, operator, and passenger workflows. Implemented authentication, operator onboarding, document verification, analytics dashboards, booking monitoring, refund processing, support ticketing, audit logs, fleet and trip operations, company and crew management, fare and inventory controls, and configurable platform settings using React, Vite, FastAPI, SQLAlchemy, and MySQL.
+---
 
-## Current Status
+## 🧪 Future Enhancements
 
-Implemented and actively available in the project:
+Potential future improvements for the platform:
 
-- Admin dashboard and platform controls
-- Operator management and onboarding workflows
-- Booking monitor and refund controls
-- Support ticket desk
-- Fare templates and inventory rules
-- Company profile, crew, and blocked seat workflows
-- CSV report exports
-- Audit logs and alerts
+- Online payment gateway integration
+- Real-time seat locking
+- Live bus tracking
+- SMS / Email ticket notifications
+- QR-based ticket verification
+- Advanced analytics and reporting dashboards
+- Role-based permissions expansion
+- Deployment and CI/CD pipeline support
 
-## Notes
+---
 
-- The frontend uses a custom CSS-based design system rather than Tailwind CSS.
-- SQLAlchemy tables are synced on backend startup through `Base.metadata.create_all(...)`.
-- This repository is structured for active feature expansion across admin, operator, and booking modules.
+## 🤝 Contributing
 
-## License
+Contributions, ideas, and improvements are welcome.
 
-This project is currently shared as a portfolio/demo codebase unless a separate license is added.
+If you'd like to contribute:
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Commit your work
+5. Open a pull request
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License**.
+See the [LICENSE](LICENSE) file for details.
+
+---
+
+<div align="center">
+
+### ⭐ If you found this project useful, consider giving it a star
+
+</div>
