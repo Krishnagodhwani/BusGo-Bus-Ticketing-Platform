@@ -126,4 +126,63 @@ class OperatorNotificationLog(Base):
     operator = relationship("User", backref="operator_notification_logs")
 
 
+class OperatorCompanyProfile(Base):
+    __tablename__ = "operator_company_profiles"
+
+    id = Column(Integer, primary_key=True, index=True)
+    operator_id = Column(Integer, ForeignKey("users.id"), nullable=False, unique=True, index=True)
+    company_name = Column(String(150), nullable=False)
+    legal_name = Column(String(150), nullable=True)
+    support_phone = Column(String(20), nullable=True)
+    support_email = Column(String(150), nullable=True)
+    service_areas = Column(Text, nullable=True)
+    address = Column(Text, nullable=True)
+    contract_status = Column(String(30), default="PENDING")
+    contract_notes = Column(Text, nullable=True)
+    verification_status = Column(String(30), default="PENDING")
+    is_active = Column(Boolean, default=True)
+    created_at = Column(DateTime, default=datetime.datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.datetime.utcnow, onupdate=datetime.datetime.utcnow)
+
+    operator = relationship("User", backref="company_profile")
+
+
+class OperatorCrewMember(Base):
+    __tablename__ = "operator_crew_members"
+
+    id = Column(Integer, primary_key=True, index=True)
+    operator_id = Column(Integer, ForeignKey("users.id"), nullable=False, index=True)
+    assigned_bus_id = Column(Integer, ForeignKey("buses.id"), nullable=True)
+    name = Column(String(120), nullable=False)
+    role = Column(String(40), nullable=False, default="DRIVER")
+    phone = Column(String(20), nullable=True)
+    license_number = Column(String(80), nullable=True)
+    credential_status = Column(String(30), default="PENDING")
+    notes = Column(Text, nullable=True)
+    is_active = Column(Boolean, default=True)
+    created_at = Column(DateTime, default=datetime.datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.datetime.utcnow, onupdate=datetime.datetime.utcnow)
+
+    operator = relationship("User", backref="crew_members")
+    assigned_bus = relationship("Bus", backref="assigned_crew")
+
+
+class BlockedSeatRule(Base):
+    __tablename__ = "blocked_seat_rules"
+
+    id = Column(Integer, primary_key=True, index=True)
+    operator_id = Column(Integer, ForeignKey("users.id"), nullable=False, index=True)
+    bus_id = Column(Integer, ForeignKey("buses.id"), nullable=True)
+    trip_id = Column(Integer, ForeignKey("trips.id"), nullable=True)
+    seat_label = Column(String(20), nullable=False)
+    reason = Column(String(200), nullable=True)
+    is_active = Column(Boolean, default=True)
+    created_at = Column(DateTime, default=datetime.datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.datetime.utcnow, onupdate=datetime.datetime.utcnow)
+
+    operator = relationship("User", backref="blocked_seat_rules")
+    bus = relationship("Bus", backref="blocked_seat_rules")
+    trip = relationship("Trip", backref="blocked_seat_rules")
+
+
 Route.trips = relationship("Trip", back_populates="route", cascade="all, delete-orphan")

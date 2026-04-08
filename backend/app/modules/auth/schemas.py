@@ -3,6 +3,7 @@
 from pydantic import BaseModel, EmailStr, Field, validator
 from typing import Optional, Literal
 import re
+from datetime import datetime
 
 
 # ==================== USER REGISTRATION (PUBLIC) ====================
@@ -60,7 +61,8 @@ class UserResponse(BaseModel):
     role: str
     operator_access_level: Optional[str] = None
     is_active: bool
-    
+    created_at: Optional[datetime] = None
+
     class Config:
         from_attributes = True
 

@@ -461,3 +461,91 @@ class NotificationDeliverySummary(BaseModel):
     prepared_notifications: int
     delivered_notifications: int
     failed_notifications: int
+
+
+class OperatorCompanyProfileBase(BaseModel):
+    company_name: str
+    legal_name: Optional[str] = None
+    support_phone: Optional[str] = None
+    support_email: Optional[str] = None
+    service_areas: Optional[str] = None
+    address: Optional[str] = None
+
+
+class OperatorCompanyProfileUpdate(OperatorCompanyProfileBase):
+    contract_notes: Optional[str] = None
+
+
+class OperatorCompanyProfileResponse(OperatorCompanyProfileBase):
+    id: int
+    operator_id: int
+    contract_status: str
+    contract_notes: Optional[str] = None
+    verification_status: str
+    is_active: bool
+    created_at: datetime
+    updated_at: datetime
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class OperatorCrewMemberCreate(BaseModel):
+    assigned_bus_id: Optional[int] = None
+    name: str
+    role: str = "DRIVER"
+    phone: Optional[str] = None
+    license_number: Optional[str] = None
+    credential_status: str = "PENDING"
+    notes: Optional[str] = None
+    is_active: bool = True
+
+
+class OperatorCrewMemberUpdate(BaseModel):
+    assigned_bus_id: Optional[int] = None
+    name: Optional[str] = None
+    role: Optional[str] = None
+    phone: Optional[str] = None
+    license_number: Optional[str] = None
+    credential_status: Optional[str] = None
+    notes: Optional[str] = None
+    is_active: Optional[bool] = None
+
+
+class OperatorCrewMemberResponse(BaseModel):
+    id: int
+    operator_id: int
+    assigned_bus_id: Optional[int] = None
+    assigned_bus_name: Optional[str] = None
+    name: str
+    role: str
+    phone: Optional[str] = None
+    license_number: Optional[str] = None
+    credential_status: str
+    notes: Optional[str] = None
+    is_active: bool
+    created_at: datetime
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class BlockedSeatCreate(BaseModel):
+    bus_id: Optional[int] = None
+    trip_id: Optional[int] = None
+    seat_label: str
+    reason: Optional[str] = None
+    is_active: bool = True
+
+
+class BlockedSeatResponse(BaseModel):
+    id: int
+    operator_id: int
+    bus_id: Optional[int] = None
+    trip_id: Optional[int] = None
+    bus_name: Optional[str] = None
+    trip_label: Optional[str] = None
+    seat_label: str
+    reason: Optional[str] = None
+    is_active: bool
+    created_at: datetime
+
+    model_config = ConfigDict(from_attributes=True)

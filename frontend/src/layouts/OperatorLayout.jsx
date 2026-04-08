@@ -61,6 +61,14 @@ export default function OperatorLayout() {
         <nav className="operator-nav-group">
           <div className="operator-nav-title">Business</div>
           <ul className="operator-nav-list">
+            {hasOperatorAccess(['OWNER', 'MANAGER']) && (
+              <li>
+                <NavLink to="/operator/company" className={({ isActive }) => `operator-nav-link ${isActive ? 'active' : ''}`}>
+                  <span className="operator-nav-icon">CP</span>
+                  <span className="operator-nav-text">Company Ops</span>
+                </NavLink>
+              </li>
+            )}
             <li>
               <NavLink to="/operator/bookings" className={({ isActive }) => `operator-nav-link ${isActive ? 'active' : ''}`}>
                 <span className="operator-nav-icon">BK</span>

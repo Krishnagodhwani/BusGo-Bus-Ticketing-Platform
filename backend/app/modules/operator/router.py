@@ -1938,3 +1938,127 @@ def export_route_performance_report(db: Session = Depends(get_db), current_user:
         ["Route", "Bookings", "Passengers", "Revenue", "Occupancy Percent"],
         rows,
     )
+
+
+def serialize_company_profile(profile):
+    return schemas.OperatorCompanyProfileResponse.model_validate(profile)
+
+
+def serialize_crew_member(item):
+    return schemas.OperatorCrewMemberResponse(
+        id=item.id,
+        operator_id=item.operator_id,
+        assigned_bus_id=item.assigned_bus_id,
+        assigned_bus_name=item.assigned_bus.name if item.assigned_bus else None,
+        name=item.name,
+        role=item.role,
+        phone=item.phone,
+        license_number=item.license_number,
+        credential_status=item.credential_status,
+        notes=item.notes,
+        is_active=item.is_active,
+        created_at=item.created_at,
+    )
+
+
+def serialize_blocked_seat(item):
+    trip_label = None
+    if item.trip:
+        trip_label = f"{item.trip.route.name if item.trip.route else 'Trip'} | {item.trip.departure_time.strftime('%Y-%m-%d %H:%M')}"
+    return schemas.BlockedSeatResponse(
+        id=item.id,
+        operator_id=item.operator_id,
+        bus_id=item.bus_id,
+        trip_id=item.trip_id,
+        bus_name=item.bus.name if item.bus else None,
+        trip_label=trip_label,
+        seat_label=item.seat_label,
+        reason=item.reason,
+        is_active=item.is_active,
+        created_at=item.created_at,
+    )
+
+
+@router.get("/company-profile", response_model=schemas.OperatorCompanyProfileResponse)
+def get_company_profile(db: Session = Depends(get_db), current_user: User = Depends(require_operator_or_admin)):
+    profile = db.query(models.OperatorCompanyProfile).filter(models.OperatorCompanyProfile.operator_id == current_user.id).first()
+    if not profile:
+        profile = models.OperatorCompanyProfile(
+            operator_id=current_user.id,
+            company_name=current_user.name or "Operator Company",
+            support_phone=current_user.phone,
+            support_email=current_user.email,
+        )
+        db.add(profile)
+        db.commit()
+        db.refresh(profile)
+    return serialize_company_profile(profile)
+
+
+@router.put("/company-profile", response_model=schemas.OperatorCompanyProfileResponse)
+def update_company_profile(payload: schemas.OperatorCompanyProfileUpdate, db: Session = Depends(get_db), current_user: User = Depends(require_operator_or_admin)):
+    profile = db.query(models.OperatorCompanyProfile).filter(models.OperatorCompanyProfile.operator_id == current_user.id).first()
+    if not profile:
+        profile = models.OperatorCompanyProfile(operator_id=current_user.id, company_name=payload.company_name)
+        db.add(profile)
+        db.flush()
+    for key, value in payload.model_dump().items():
+        setattr(profile, key, value)
+    db.commit()
+    db.refresh(profile)
+    return serialize_company_profile(profile)
+
+
+@router.get("/crew", response_model=list[schemas.OperatorCrewMemberResponse])
+def get_operator_crew(db: Session = Depends(get_db), current_user: User = Depends(require_operator_or_admin)):
+    ensure_operator_access(current_user, ["OWNER", "MANAGER"])
+    items = db.query(models.OperatorCrewMember).filter(models.OperatorCrewMember.operator_id == current_user.id).order_by(models.OperatorCrewMember.created_at.desc()).all()
+    return [serialize_crew_member(item) for item in items]
+
+
+@router.post("/crew", response_model=schemas.OperatorCrewMemberResponse)
+def create_operator_crew(payload: schemas.OperatorCrewMemberCreate, db: Session = Depends(get_db), current_user: User = Depends(require_operator_or_admin)):
+    ensure_operator_access(current_user, ["OWNER", "MANAGER"])
+    item = models.OperatorCrewMember(operator_id=current_user.id, **payload.model_dump())
+    db.add(item)
+    db.commit()
+    db.refresh(item)
+    return serialize_crew_member(item)
+
+
+@router.put("/crew/{crew_id}", response_model=schemas.OperatorCrewMemberResponse)
+def update_operator_crew(crew_id: int, payload: schemas.OperatorCrewMemberUpdate, db: Session = Depends(get_db), current_user: User = Depends(require_operator_or_admin)):
+    ensure_operator_access(current_user, ["OWNER", "MANAGER"])
+    item = db.query(models.OperatorCrewMember).filter(models.OperatorCrewMember.id == crew_id, models.OperatorCrewMember.operator_id == current_user.id).first()
+    if not item:
+        raise HTTPException(status_code=404, detail="Crew member not found")
+    for key, value in payload.model_dump(exclude_none=True).items():
+        setattr(item, key, value)
+    db.commit()
+    db.refresh(item)
+    return serialize_crew_member(item)
+
+
+@router.get("/blocked-seats", response_model=list[schemas.BlockedSeatResponse])
+def get_blocked_seats(db: Session = Depends(get_db), current_user: User = Depends(require_operator_or_admin)):
+    items = db.query(models.BlockedSeatRule).filter(models.BlockedSeatRule.operator_id == current_user.id).order_by(models.BlockedSeatRule.created_at.desc()).all()
+    return [serialize_blocked_seat(item) for item in items]
+
+
+@router.post("/blocked-seats", response_model=schemas.BlockedSeatResponse)
+def create_blocked_seat(payload: schemas.BlockedSeatCreate, db: Session = Depends(get_db), current_user: User = Depends(require_operator_or_admin)):
+    item = models.BlockedSeatRule(operator_id=current_user.id, **payload.model_dump())
+    db.add(item)
+    db.commit()
+    db.refresh(item)
+    return serialize_blocked_seat(item)
+
+
+@router.delete("/blocked-seats/{blocked_seat_id}")
+def delete_blocked_seat(blocked_seat_id: int, db: Session = Depends(get_db), current_user: User = Depends(require_operator_or_admin)):
+    item = db.query(models.BlockedSeatRule).filter(models.BlockedSeatRule.id == blocked_seat_id, models.BlockedSeatRule.operator_id == current_user.id).first()
+    if not item:
+        raise HTTPException(status_code=404, detail="Blocked seat rule not found")
+    db.delete(item)
+    db.commit()
+    return {"message": "Blocked seat removed"}

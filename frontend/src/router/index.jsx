@@ -11,6 +11,10 @@ import AdminDashboard from '../modules/admin/pages/AdminDashboard';
 import OperatorsPage from '../modules/admin/pages/OperatorsPage';
 import CitiesPage from '../modules/admin/pages/CitiesPage';
 import BusTypesPage from '../modules/admin/pages/BusTypesPage';
+import PassengersPage from '../modules/admin/pages/PassengersPage';
+import BookingsPage from '../modules/admin/pages/BookingsPage';
+import PaymentLedgerPage from '../modules/admin/pages/PaymentLedgerPage';
+import AdminSettingsPage from '../modules/admin/pages/AdminSettingsPage';
 
 // Operator imports
 import OperatorLayout from '../layouts/OperatorLayout';
@@ -20,6 +24,7 @@ import OperatorRoutesPage from '../modules/operator/pages/OperatorRoutesPage';
 import OperatorTripsPage from '../modules/operator/pages/OperatorTripsPage';
 import OperatorBookingsPage from '../modules/operator/pages/OperatorBookingsPage';
 import OperatorFinancialsPage from '../modules/operator/pages/OperatorFinancialsPage';
+import OperatorCompanyPage from '../modules/operator/pages/OperatorCompanyPage';
 
 // User imports
 import UserLayout from '../layouts/UserLayout';
@@ -121,6 +126,7 @@ export default function AppRouter() {
           <Route index element={<Navigate to="/operator/dashboard" replace />} />
           <Route path="dashboard" element={<OperatorDashboard />} />
           <Route path="buses" element={<ProtectedRoute allowedRoles={['OPERATOR']} allowedOperatorAccessLevels={['OWNER', 'MANAGER']}><OperatorBusesPage /></ProtectedRoute>} />
+          <Route path="company" element={<ProtectedRoute allowedRoles={['OPERATOR']} allowedOperatorAccessLevels={['OWNER', 'MANAGER']}><OperatorCompanyPage /></ProtectedRoute>} />
           <Route path="routes" element={<ProtectedRoute allowedRoles={['OPERATOR']} allowedOperatorAccessLevels={['OWNER', 'MANAGER']}><OperatorRoutesPage /></ProtectedRoute>} />
           <Route path="trips" element={<ProtectedRoute allowedRoles={['OPERATOR']} allowedOperatorAccessLevels={['OWNER', 'MANAGER', 'GROUND_STAFF']}><OperatorTripsPage /></ProtectedRoute>} />
           <Route path="bookings" element={<OperatorBookingsPage />} />
@@ -132,11 +138,12 @@ export default function AppRouter() {
           <Route index element={<Navigate to="/admin/dashboard" replace />} />
           <Route path="dashboard" element={<AdminDashboard />} />
           <Route path="operators" element={<OperatorsPage />} />
-          <Route path="users" element={<Placeholder title="Passengers Management" />} />
-          <Route path="bookings" element={<Placeholder title="Bookings Management" />} />
+          <Route path="users" element={<PassengersPage />} />
+          <Route path="bookings" element={<BookingsPage />} />
+          <Route path="payments" element={<PaymentLedgerPage />} />
           <Route path="master/cities" element={<CitiesPage />} />
           <Route path="master/buses" element={<BusTypesPage />} />
-          <Route path="settings" element={<Placeholder title="System Settings" />} />
+          <Route path="settings" element={<AdminSettingsPage />} />
         </Route>
 
         {/* Catch-all */}

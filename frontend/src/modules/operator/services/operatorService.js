@@ -53,6 +53,14 @@ export const exportFinancialTransactions = () => api.get('/operator/financials/e
 export const exportDailyOperationsReport = () => api.get('/operator/reports/daily-operations', { responseType: 'blob' });
 export const exportCancellationsRefundsReport = () => api.get('/operator/reports/cancellations-refunds', { responseType: 'blob' });
 export const exportRoutePerformanceReport = () => api.get('/operator/reports/route-performance', { responseType: 'blob' });
+export const getCompanyProfile = () => api.get('/operator/company-profile');
+export const updateCompanyProfile = (payload) => api.put('/operator/company-profile', payload);
+export const getOperatorCrew = () => api.get('/operator/crew');
+export const createOperatorCrew = (payload) => api.post('/operator/crew', payload);
+export const updateOperatorCrew = (crewId, payload) => api.put(`/operator/crew/${crewId}`, payload);
+export const getBlockedSeats = () => api.get('/operator/blocked-seats');
+export const createBlockedSeat = (payload) => api.post('/operator/blocked-seats', payload);
+export const deleteBlockedSeat = (blockedSeatId) => api.delete(`/operator/blocked-seats/${blockedSeatId}`);
 
 export const getAdminCities = () => api.get('/admin/cities');
 export const getAdminBusTypes = () => api.get('/admin/bus-types');

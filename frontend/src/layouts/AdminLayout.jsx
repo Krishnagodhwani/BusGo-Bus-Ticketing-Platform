@@ -31,22 +31,26 @@ export default function AdminLayout() {
         <nav className="sidebar-nav">
           <div className="nav-label">Overview</div>
           <NavLink to="/admin/dashboard" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
-            <span className="nav-icon">DB</span>
+            <span className="nav-icon">OV</span>
             Dashboard
           </NavLink>
 
-          <div className="nav-label">Management</div>
+          <div className="nav-label">Operations</div>
           <NavLink to="/admin/operators" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
             <span className="nav-icon">OP</span>
             Operators
           </NavLink>
           <NavLink to="/admin/users" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
-            <span className="nav-icon">US</span>
+            <span className="nav-icon">PA</span>
             Passengers
           </NavLink>
           <NavLink to="/admin/bookings" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
             <span className="nav-icon">BK</span>
-            Bookings
+            Booking Monitor
+          </NavLink>
+          <NavLink to="/admin/payments" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
+            <span className="nav-icon">PY</span>
+            Payment Ledger
           </NavLink>
 
           <div className="nav-label">Master Data</div>
@@ -62,7 +66,7 @@ export default function AdminLayout() {
           <div className="nav-label">System</div>
           <NavLink to="/admin/settings" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
             <span className="nav-icon">ST</span>
-            Settings
+            Policy & Settings
           </NavLink>
         </nav>
 
@@ -84,15 +88,13 @@ export default function AdminLayout() {
         <div className="dashboard-bg"></div>
 
         <header className="admin-topbar">
-          <div className="topbar-title">Platform Control</div>
+          <div>
+            <div className="topbar-title">Platform Control</div>
+            <div className="topbar-subtitle">Admin workspace for network, revenue, and policy operations</div>
+          </div>
           <div className="topbar-actions">
-            <button className="topbar-btn" title="View live site">
-              Web
-            </button>
-            <button className="topbar-btn" title="Notifications">
-              Bell
-              <span className="notification-dot"></span>
-            </button>
+            <div className="topbar-chip">Role: ADMIN</div>
+            <div className="topbar-chip success">Secure session</div>
           </div>
         </header>
 

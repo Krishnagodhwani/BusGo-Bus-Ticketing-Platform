@@ -1,19 +1,15 @@
-import { useState, useEffect } from 'react';
-import { getCities, createCity } from '../services/adminService';
+import { useEffect, useState } from 'react';
+import { createCity, getCities } from '../services/adminService';
 
 export default function CitiesPage() {
   const [cities, setCities] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({ name: '', state: 'Rajasthan', is_active: true });
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
-  const [submitting, setSubmitting] = useState(false);
 
-  useEffect(() => {
-    fetchCities();
-  }, []);
-
-  const fetchCities = async () => {
+  const load = async () => {
     try {
       setLoading(true);
       const res = await getCities();
@@ -26,118 +22,90 @@ export default function CitiesPage() {
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
-    setSubmitting(true);
+  useEffect(() => {
+    load();
+  }, []);
+
+  const submit = async (event) => {
+    event.preventDefault();
+    setSaving(true);
     try {
       await createCity(formData);
       setShowModal(false);
-      setFormData({ name: '', state: 'Rajasthan', is_active: true }); // reset but keep state rules
-      fetchCities();
+      setFormData({ name: '', state: 'Rajasthan', is_active: true });
+      await load();
     } catch (err) {
-      setError(err.response?.data?.detail || 'Failed to create city');
+      setError(err.response?.data?.detail || 'Failed to create city.');
     } finally {
-      setSubmitting(false);
+      setSaving(false);
     }
   };
 
   return (
-    <div>
-      <h2 style={{ fontFamily: "'Syne', sans-serif", fontSize: "28px", fontWeight: "700", marginBottom: "8px" }}>
-        Master Cities
-      </h2>
-      <p style={{ color: "var(--text-secondary)", fontSize: "14px", marginBottom: "32px" }}>
-        Define valid boarding and dropping locations for bus routes.
-        <br />
-        <span style={{ color: "var(--teal-400)", fontWeight: 600 }}>Currently operating strictly in Rajasthan state.</span>
-      </p>
-
-      <div className="admin-card">
-        <div className="admin-card-header">
-          <div className="admin-card-title">Network Locations</div>
-          <button className="admin-btn-primary" onClick={() => setShowModal(true)}>
-            <span>+</span> Add City
-          </button>
+    <div className="admin-page-shell">
+      <section className="admin-section-header">
+        <div>
+          <div className="admin-eyebrow">Master management</div>
+          <h1 className="admin-page-title">Cities master</h1>
+          <p className="admin-page-copy">Control the approved city list used across route planning, boarding, and dropping flows.</p>
         </div>
+        <button className="admin-btn-primary" onClick={() => setShowModal(true)}>Add city</button>
+      </section>
 
-        <div className="admin-table-container">
-          <table className="admin-table">
+      <section className="admin-surface-card">
+        <div className="admin-table-wrap">
+          <table className="admin-table refined">
             <thead>
               <tr>
-                <th>City Name</th>
-                <th>State / Region</th>
+                <th>City</th>
+                <th>State</th>
                 <th>Status</th>
-                <th>Added On</th>
+                <th>Created</th>
               </tr>
             </thead>
             <tbody>
               {loading ? (
-                <tr><td colSpan="4" style={{ textAlign: "center", padding: "32px" }}>Loading data...</td></tr>
+                <tr><td colSpan="4" className="admin-table-empty">Loading cities...</td></tr>
               ) : cities.length === 0 ? (
-                <tr><td colSpan="4" style={{ textAlign: "center", padding: "32px" }}>No cities defined yet.</td></tr>
-              ) : (
-                cities.map(city => (
-                  <tr key={city.id}>
-                    <td style={{ fontWeight: 600, color: "var(--text-primary)" }}>{city.name}</td>
-                    <td style={{ color: "var(--teal-300)" }}>{city.state}</td>
-                    <td>
-                      <span className={`badge ${city.is_active ? 'badge-active' : ''}`}>
-                        {city.is_active ? 'Active' : 'Inactive'}
-                      </span>
-                    </td>
-                    <td>{new Date().toLocaleDateString()}</td> {/* Note: If backend doesn't return created_at, mock it to today for UI */}
-                  </tr>
-                ))
-              )}
+                <tr><td colSpan="4" className="admin-table-empty">{error || 'No cities defined yet.'}</td></tr>
+              ) : cities.map((city) => (
+                <tr key={city.id}>
+                  <td className="admin-table-primary">{city.name}</td>
+                  <td>{city.state || '-'}</td>
+                  <td><span className={`admin-status-pill ${city.is_active ? 'confirmed' : 'cancelled'}`}>{city.is_active ? 'Active' : 'Inactive'}</span></td>
+                  <td>{city.created_at ? new Date(city.created_at).toLocaleDateString() : '-'}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
-      </div>
+      </section>
 
       {showModal && (
         <div className="modal-overlay">
           <div className="modal-content">
             <div className="modal-header">
-              <div className="modal-title">Define New City</div>
-              <button className="modal-close" onClick={() => setShowModal(false)}>×</button>
+              <div>
+                <div className="modal-title">Add city master</div>
+                <div className="modal-subtitle">Add a city that operators can use in routes and trip planning.</div>
+              </div>
+              <button className="modal-close" onClick={() => setShowModal(false)}>x</button>
             </div>
-            <form onSubmit={handleSubmit}>
-              <div className="modal-body">
-                {error && <div style={{ color: "var(--red-400)", marginBottom: "16px", fontSize: "14px" }}>{error}</div>}
-                
-                <div style={{ marginBottom: "20px" }}>
-                  <label style={{ display: "block", marginBottom: "8px", fontSize: "13px", color: "var(--text-secondary)" }}>Target State*</label>
-                  <input 
-                    type="text" 
-                    disabled
-                    className="form-input" 
-                    value={formData.state} 
-                    style={{ background: 'rgba(255,255,255,0.05)', color: 'var(--text-muted)', cursor: 'not-allowed' }}
-                  />
-                  <p style={{ fontSize: "11px", color: "var(--amber-400)", marginTop: "6px" }}>
-                    Operations are locked to Rajasthan per Go-To-Market strategy.
-                  </p>
-                </div>
-
-                <div style={{ marginBottom: "16px" }}>
-                  <label style={{ display: "block", marginBottom: "8px", fontSize: "13px", color: "var(--text-secondary)" }}>City Name*</label>
-                  <input 
-                    type="text" 
-                    required 
-                    autoFocus
-                    className="form-input" 
-                    placeholder="e.g. Jaipur"
-                    value={formData.name} 
-                    onChange={e => setFormData({...formData, name: e.target.value})} 
-                  />
-                </div>
+            <form onSubmit={submit}>
+              <div className="modal-body form-grid">
+                {error && <div className="admin-inline-error">{error}</div>}
+                <label className="admin-field full">
+                  <span>City name</span>
+                  <input className="form-input" value={formData.name} onChange={(event) => setFormData({ ...formData, name: event.target.value })} required />
+                </label>
+                <label className="admin-field full">
+                  <span>State</span>
+                  <input className="form-input" value={formData.state} onChange={(event) => setFormData({ ...formData, state: event.target.value })} required />
+                </label>
               </div>
               <div className="modal-footer">
                 <button type="button" className="admin-btn-outline" onClick={() => setShowModal(false)}>Cancel</button>
-                <button type="submit" className="admin-btn-primary" disabled={submitting}>
-                  {submitting ? 'Saving...' : 'Add City Master'}
-                </button>
+                <button type="submit" className="admin-btn-primary" disabled={saving}>{saving ? 'Saving...' : 'Save city'}</button>
               </div>
             </form>
           </div>

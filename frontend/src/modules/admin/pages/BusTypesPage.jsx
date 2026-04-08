@@ -1,32 +1,27 @@
-import { useState, useEffect } from 'react';
-import { getBusTypes, createBusType } from '../services/adminService';
+import { useEffect, useState } from 'react';
+import { createBusType, getBusTypes } from '../services/adminService';
+
+const initialForm = {
+  name: '',
+  layout: '2+2',
+  has_ac: true,
+  has_sleeper: false,
+  is_active: true,
+};
 
 export default function BusTypesPage() {
-  const [buses, setBuses] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [busTypes, setBusTypes] = useState([]);
+  const [formData, setFormData] = useState(initialForm);
   const [showModal, setShowModal] = useState(false);
-  
-  // default bus state
-  const [formData, setFormData] = useState({ 
-    name: '', 
-    layout: '2+2', 
-    has_ac: true, 
-    has_sleeper: false, 
-    is_active: true 
-  });
-  
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
-  const [submitting, setSubmitting] = useState(false);
 
-  useEffect(() => {
-    fetchBuses();
-  }, []);
-
-  const fetchBuses = async () => {
+  const load = async () => {
     try {
       setLoading(true);
       const res = await getBusTypes();
-      setBuses(res.data);
+      setBusTypes(res.data);
     } catch (err) {
       console.error(err);
       setError('Failed to load bus types.');
@@ -35,157 +30,105 @@ export default function BusTypesPage() {
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
-    setSubmitting(true);
+  useEffect(() => {
+    load();
+  }, []);
+
+  const submit = async (event) => {
+    event.preventDefault();
+    setSaving(true);
     try {
       await createBusType(formData);
+      setFormData(initialForm);
       setShowModal(false);
-      
-      // Reset defaults
-      setFormData({ name: '', layout: '2+2', has_ac: true, has_sleeper: false, is_active: true });
-      fetchBuses();
+      await load();
     } catch (err) {
-      setError(err.response?.data?.detail || 'Failed to create bus type');
+      setError(err.response?.data?.detail || 'Failed to create bus type.');
     } finally {
-      setSubmitting(false);
+      setSaving(false);
     }
   };
 
   return (
-    <div>
-      <h2 style={{ fontFamily: "'Syne', sans-serif", fontSize: "28px", fontWeight: "700", marginBottom: "8px" }}>
-        Master Bus Fleets
-      </h2>
-      <p style={{ color: "var(--text-secondary)", fontSize: "14px", marginBottom: "32px" }}>
-        Configure the official list of fleet configurations operators can select from.
-      </p>
-
-      <div className="admin-card">
-        <div className="admin-card-header">
-          <div className="admin-card-title">Available Bus Layouts</div>
-          <button className="admin-btn-primary" onClick={() => setShowModal(true)}>
-            <span>+</span> Define Fleet
-          </button>
+    <div className="admin-page-shell">
+      <section className="admin-section-header">
+        <div>
+          <div className="admin-eyebrow">Master management</div>
+          <h1 className="admin-page-title">Bus types master</h1>
+          <p className="admin-page-copy">Define the approved fleet catalogue operators can use while creating buses and trips.</p>
         </div>
+        <button className="admin-btn-primary" onClick={() => setShowModal(true)}>Add bus type</button>
+      </section>
 
-        <div className="admin-table-container">
-          <table className="admin-table">
+      <section className="admin-surface-card">
+        <div className="admin-table-wrap">
+          <table className="admin-table refined">
             <thead>
               <tr>
-                <th>Classification Name</th>
-                <th>Seat Layout</th>
-                <th>Amenities</th>
-                <th>Sleeper?</th>
+                <th>Bus Type</th>
+                <th>Layout</th>
+                <th>AC</th>
+                <th>Sleeper</th>
+                <th>Status</th>
               </tr>
             </thead>
             <tbody>
               {loading ? (
-                <tr><td colSpan="4" style={{ textAlign: "center", padding: "32px" }}>Loading data...</td></tr>
-              ) : buses.length === 0 ? (
-                <tr><td colSpan="4" style={{ textAlign: "center", padding: "32px" }}>No fleet types configured.</td></tr>
-              ) : (
-                buses.map(bus => (
-                  <tr key={bus.id}>
-                    <td style={{ fontWeight: 600, color: "var(--text-primary)" }}>{bus.name}</td>
-                    <td>
-                      <span style={{ 
-                        background: "rgba(255,255,255,0.05)", 
-                        padding: "2px 8px", 
-                        borderRadius: "4px", 
-                        fontFamily: "monospace" 
-                      }}>
-                        {bus.layout}
-                      </span>
-                    </td>
-                    <td>
-                      {bus.has_ac ? (
-                        <span style={{ color: "var(--blue-400)", fontWeight: 500 }}>❄️ A/C Air-Conditioned</span>
-                      ) : (
-                        <span style={{ color: "var(--amber-400)" }}>💨 Non A/C</span>
-                      )}
-                    </td>
-                    <td>
-                      <span className={`badge ${bus.has_sleeper ? 'badge-active' : ''}`}>
-                        {bus.has_sleeper ? '🛏️ Sleeper' : '💺 Seater'}
-                      </span>
-                    </td>
-                  </tr>
-                ))
-              )}
+                <tr><td colSpan="5" className="admin-table-empty">Loading bus types...</td></tr>
+              ) : busTypes.length === 0 ? (
+                <tr><td colSpan="5" className="admin-table-empty">{error || 'No bus types configured.'}</td></tr>
+              ) : busTypes.map((item) => (
+                <tr key={item.id}>
+                  <td className="admin-table-primary">{item.name}</td>
+                  <td>{item.layout}</td>
+                  <td>{item.has_ac ? 'Yes' : 'No'}</td>
+                  <td>{item.has_sleeper ? 'Yes' : 'No'}</td>
+                  <td><span className={`admin-status-pill ${item.is_active ? 'confirmed' : 'cancelled'}`}>{item.is_active ? 'Active' : 'Inactive'}</span></td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
-      </div>
+      </section>
 
       {showModal && (
         <div className="modal-overlay">
           <div className="modal-content">
             <div className="modal-header">
-              <div className="modal-title">Define Bus Architecture</div>
-              <button className="modal-close" onClick={() => setShowModal(false)}>×</button>
+              <div>
+                <div className="modal-title">Add bus type</div>
+                <div className="modal-subtitle">Create a new fleet template for operator use.</div>
+              </div>
+              <button className="modal-close" onClick={() => setShowModal(false)}>x</button>
             </div>
-            <form onSubmit={handleSubmit}>
-              <div className="modal-body">
-                {error && <div style={{ color: "var(--red-400)", marginBottom: "16px", fontSize: "14px" }}>{error}</div>}
-                
-                <div style={{ marginBottom: "16px" }}>
-                  <label style={{ display: "block", marginBottom: "8px", fontSize: "13px", color: "var(--text-secondary)" }}>Fleet Classification Name*</label>
-                  <input 
-                    type="text" 
-                    required 
-                    autoFocus
-                    className="form-input" 
-                    placeholder="e.g. Scania Double A/C Semi-Sleeper"
-                    value={formData.name} 
-                    onChange={e => setFormData({...formData, name: e.target.value})} 
-                  />
-                </div>
-
-                <div style={{ marginBottom: "20px" }}>
-                  <label style={{ display: "block", marginBottom: "8px", fontSize: "13px", color: "var(--text-secondary)" }}>Physical Seat Layout*</label>
-                  <select 
-                    required 
-                    className="form-input" 
-                    value={formData.layout} 
-                    onChange={e => setFormData({...formData, layout: e.target.value})} 
-                  >
-                    <option value="2+2">2+2 (Standard Seater)</option>
-                    <option value="2+1">2+1 (Executive / Sleeper)</option>
-                    <option value="1+1">1+1 (Premium Sleeper)</option>
-                    <option value="3+2">3+2 (Economy)</option>
+            <form onSubmit={submit}>
+              <div className="modal-body form-grid">
+                {error && <div className="admin-inline-error">{error}</div>}
+                <label className="admin-field full">
+                  <span>Name</span>
+                  <input className="form-input" value={formData.name} onChange={(event) => setFormData({ ...formData, name: event.target.value })} required />
+                </label>
+                <label className="admin-field full">
+                  <span>Layout</span>
+                  <select className="form-input" value={formData.layout} onChange={(event) => setFormData({ ...formData, layout: event.target.value })}>
+                    <option value="2+2">2+2</option>
+                    <option value="2+1">2+1</option>
+                    <option value="1+1">1+1</option>
+                    <option value="3+2">3+2</option>
                   </select>
-                </div>
-
-                <div style={{ display: 'flex', gap: '20px', background: 'rgba(255,255,255,0.02)', padding: '16px', borderRadius: '12px', border: '1px solid var(--border-subtle)' }}>
-                  <label style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer" }}>
-                    <input 
-                      type="checkbox" 
-                      checked={formData.has_ac}
-                      onChange={e => setFormData({...formData, has_ac: e.target.checked})}
-                      style={{ width: '18px', height: '18px', accentColor: 'var(--teal-500)' }}
-                    />
-                    <span style={{ fontSize: "14px" }}>Includes A/C</span>
-                  </label>
-                  
-                  <label style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer" }}>
-                    <input 
-                      type="checkbox" 
-                      checked={formData.has_sleeper}
-                      onChange={e => setFormData({...formData, has_sleeper: e.target.checked})}
-                      style={{ width: '18px', height: '18px', accentColor: 'var(--teal-500)' }}
-                    />
-                    <span style={{ fontSize: "14px" }}>Sleeper Coach</span>
-                  </label>
-                </div>
-
+                </label>
+                <label className="admin-field toggle">
+                  <span>AC enabled</span>
+                  <input type="checkbox" checked={formData.has_ac} onChange={(event) => setFormData({ ...formData, has_ac: event.target.checked })} />
+                </label>
+                <label className="admin-field toggle">
+                  <span>Sleeper coach</span>
+                  <input type="checkbox" checked={formData.has_sleeper} onChange={(event) => setFormData({ ...formData, has_sleeper: event.target.checked })} />
+                </label>
               </div>
               <div className="modal-footer">
                 <button type="button" className="admin-btn-outline" onClick={() => setShowModal(false)}>Cancel</button>
-                <button type="submit" className="admin-btn-primary" disabled={submitting}>
-                  {submitting ? 'Saving...' : 'Add Fleet Config'}
-                </button>
+                <button type="submit" className="admin-btn-primary" disabled={saving}>{saving ? 'Saving...' : 'Save bus type'}</button>
               </div>
             </form>
           </div>

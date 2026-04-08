@@ -1,42 +1,44 @@
 import api from '../../../api/axiosInstance';
 
-/**
- * Fetch top level platform stats for Admin
- */
 export const getPlatformAnalytics = () => api.get('/admin/analytics');
-
-/**
- * Fetch all master cities
- */
+export const getAdminAlerts = () => api.get('/admin/alerts');
+export const getAdminAuditLogs = () => api.get('/admin/audit-logs');
 export const getCities = () => api.get('/admin/cities');
-
-/**
- * Create a new master city
- */
 export const createCity = (payload) => api.post('/admin/cities', payload);
-
-/**
- * Fetch all master bus types
- */
 export const getBusTypes = () => api.get('/admin/bus-types');
-
-/**
- * Create a new master bus type
- */
 export const createBusType = (payload) => api.post('/admin/bus-types', payload);
-
-/**
- * Fetch all registered operators
- */
 export const getOperators = () => api.get('/admin/operators');
-
-/**
- * Create a new operator
- * Note: Uses auth module endpoint but restricted to ADMIN
- */
 export const createOperator = (payload) => api.post('/auth/create-operator', payload);
-
-/**
- * Toggle Operator Status (Activate/Deactivate)
- */
 export const toggleOperatorStatus = (operatorId) => api.put(`/admin/operators/${operatorId}/status`);
+export const updateOperator = (operatorId, payload) => api.put(`/admin/operators/${operatorId}`, payload);
+export const getPassengers = () => api.get('/admin/passengers');
+export const getBookingsMonitoring = () => api.get('/admin/bookings-monitoring');
+export const issueRefund = (bookingId, payload) => api.post(`/admin/bookings/${bookingId}/issue-refund`, payload);
+export const getPaymentLedger = () => api.get('/admin/payment-ledger');
+export const getRefundAudits = () => api.get('/admin/refund-audits');
+export const getCancellationPolicy = () => api.get('/admin/cancellation-policy');
+export const updateCancellationPolicy = (payload) => api.put('/admin/cancellation-policy', payload);
+export const getRevenueConfig = () => api.get('/admin/revenue-config');
+export const updateRevenueConfig = (payload) => api.put('/admin/revenue-config', payload);
+export const getPlatformSettings = () => api.get('/admin/platform-settings');
+export const updatePlatformSetting = (settingKey, payload) => api.put(`/admin/platform-settings/${settingKey}`, payload);
+export const getMasterSummary = () => api.get('/admin/master-summary');
+export const getInventoryRules = () => api.get('/admin/inventory-rules');
+export const updateInventoryRules = (payload) => api.put('/admin/inventory-rules', payload);
+export const getFareTemplates = () => api.get('/admin/fare-templates');
+export const createFareTemplate = (payload) => api.post('/admin/fare-templates', payload);
+export const updateFareTemplate = (templateId, payload) => api.put(`/admin/fare-templates/${templateId}`, payload);
+export const getOnboardingRequests = () => api.get('/admin/operator-onboarding-requests');
+export const createOnboardingRequest = (payload) => api.post('/admin/operator-onboarding-requests', payload);
+export const reviewOnboardingRequest = (requestId, payload) => api.post(`/admin/operator-onboarding-requests/${requestId}/review`, payload);
+export const getOperatorDocuments = () => api.get('/admin/operator-documents');
+export const createOperatorDocument = (payload) => api.post('/admin/operator-documents', payload);
+export const verifyOperatorDocument = (documentId, payload) => api.post(`/admin/operator-documents/${documentId}/verify`, payload);
+export const getOperatorCommercialProfile = (operatorId) => api.get(`/admin/operators/${operatorId}/commercial-profile`);
+export const updateOperatorCommercialProfile = (operatorId, payload) => api.put(`/admin/operators/${operatorId}/commercial-profile`, payload);
+export const getSupportTickets = () => api.get('/admin/support-tickets');
+export const createSupportTicket = (payload) => api.post('/admin/support-tickets', payload);
+export const updateSupportTicket = (ticketId, payload) => api.put(`/admin/support-tickets/${ticketId}`, payload);
+export const exportAdminOperators = () => api.get('/admin/reports/operators/export', { responseType: 'blob' });
+export const exportAdminBookings = () => api.get('/admin/reports/bookings/export', { responseType: 'blob' });
+export const exportAdminSupportTickets = () => api.get('/admin/reports/support/export', { responseType: 'blob' });
